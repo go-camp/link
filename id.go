@@ -37,3 +37,11 @@ type ID interface {
 	// String returns string expression of id.
 	String() string
 }
+
+// Must returns an id if err is nil and panics otherwise.
+func Must(id ID, err error) ID {
+	if err != nil {
+		panic(err)
+	}
+	return id
+}
