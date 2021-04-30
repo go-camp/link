@@ -19,7 +19,7 @@ func (seq *Seq) forceIncrementBy() int64 {
 }
 
 func (seq *Seq) init() {
-	seq.seq = seq.seq - seq.forceIncrementBy()
+	seq.seq -= seq.forceIncrementBy()
 }
 
 // Next advances the sequence to its next value and returns that value.
