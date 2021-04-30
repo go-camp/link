@@ -5,11 +5,6 @@ import "sync/atomic"
 // Seq is a sequence number generator.
 //
 // All public methods can be safely called concurrently.
-//
-// Usage example:
-//   id := Must(NewRandom())
-//   seq := NewSeq()
-//   id.Child(seq.Next())
 type Seq struct {
 	seq int64
 

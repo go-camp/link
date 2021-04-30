@@ -27,3 +27,16 @@ func ExampleParseRandom() {
 	// Deep: 3
 	// Equal(NewRandom()): false
 }
+
+func ExampleSeq() {
+	seq := NewSeq()
+	p := fmt.Println
+	p(seq.Next())
+
+	root := Must(NewRandom())
+	id := root.Child(seq.Next())
+	p(id.Index())
+	// Output:
+	// 0
+	// 1
+}
