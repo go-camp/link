@@ -54,3 +54,8 @@ func NewSeq(opts ...SeqOption) *Seq {
 	seq.init()
 	return seq
 }
+
+// NextChild returns the next derived child id.
+func NextChild(id ID, seq *Seq) ID {
+	return id.Child(seq.Next())
+}

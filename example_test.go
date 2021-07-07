@@ -34,7 +34,7 @@ func ExampleSeq() {
 	p(seq.Next())
 
 	root := Must(NewRandom())
-	id := root.Child(seq.Next())
+	id := NextChild(root, seq)
 	p(id.Index())
 	// Output:
 	// 0

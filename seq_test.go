@@ -34,3 +34,15 @@ func TestSeq(t *testing.T) {
 		}
 	})
 }
+
+func TestNextChild(t *testing.T) {
+	id := Must(NewRandom())
+	seq := NewSeq(SeqStartWith(10))
+	child := NextChild(id, seq)
+	if !child.Parent().Equal(id) {
+		t.Fatalf("want child's parent %s equals to id %s", child.Parent(), id)
+	}
+	if child.Index() != 10 {
+		t.Fatalf("want index of child is 10 but get %d", child.Index())
+	}
+}
