@@ -6,7 +6,7 @@ import (
 )
 
 func TestSeq(t *testing.T) {
-	var startWith int64 = 10
+	var startWith uint64 = 10
 	seq := NewSeq(SeqStartWith(startWith), SeqIncrementBy(2))
 
 	t.Run("Next", func(t *testing.T) {

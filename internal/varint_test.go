@@ -6,13 +6,8 @@ import (
 )
 
 func TestVarint(t *testing.T) {
-	for i := -64; i <= 63; i++ {
-		var v int64
-		if i < 0 {
-			v = -1 << -i
-		} else {
-			v = (1 << i) - 1
-		}
+	for i := 0; i <= 64; i++ {
+		v := (uint64(1) << i) - 1
 
 		t.Run(fmt.Sprintf("%d_%016x", i, v), func(t *testing.T) {
 			buf := make([]byte, MaxVarintSize)

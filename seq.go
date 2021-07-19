@@ -6,12 +6,12 @@ import "sync/atomic"
 //
 // All public methods can be safely called concurrently.
 type Seq struct {
-	seq int64
+	seq uint64
 
-	incrementBy int64
+	incrementBy uint64
 }
 
-func (seq *Seq) forceIncrementBy() int64 {
+func (seq *Seq) forceIncrementBy() uint64 {
 	if seq.incrementBy == 0 {
 		return 1
 	}
@@ -23,14 +23,14 @@ func (seq *Seq) init() {
 }
 
 // Next advances the sequence to its next value and returns that value.
-func (seq *Seq) Next() int64 {
-	return atomic.AddInt64(&seq.seq, seq.forceIncrementBy())
+func (seq *Seq) Next() uint64 {
+	return atomic.AddUint64(&seq.seq, seq.forceIncrementBy())
 }
 
 type SeqOption func(seq *Seq)
 
 // SeqStartWith allows the sequence to begin anywhere. The default starting value is 0.
-func SeqStartWith(startWith int64) SeqOption {
+func SeqStartWith(startWith uint64) SeqOption {
 	return func(seq *Seq) {
 		seq.seq = startWith
 	}
@@ -39,7 +39,7 @@ func SeqStartWith(startWith int64) SeqOption {
 // SeqIncrementBy specifies which value is added to the current sequence value to create an new value.
 // A positive value will make an ascending sequence, a negative one a descending sequence.
 // The default value is 1.
-func SeqIncrementBy(incrementBy int64) SeqOption {
+func SeqIncrementBy(incrementBy uint64) SeqOption {
 	return func(seq *Seq) {
 		seq.incrementBy = incrementBy
 	}

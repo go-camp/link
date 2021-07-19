@@ -7,8 +7,8 @@ import (
 
 const MaxVarintSize = binary.MaxVarintLen64
 
-func VarintSize(v int64) int {
-	return 1 + (bits.Len64(uint64(v))-1)/7
+func VarintSize(v uint64) int {
+	return 1 + (bits.Len64(v)-1)/7
 }
 
 func VarintSizeInBytes(b []byte) int {
@@ -46,16 +46,15 @@ func VarintSizeInLastBytes(b []byte) int {
 	return n
 }
 
-func PutVarint(b []byte, v int64) int {
-	return binary.PutUvarint(b, uint64(v))
+func PutVarint(b []byte, v uint64) int {
+	return binary.PutUvarint(b, v)
 }
 
-func ReadVarint(b []byte) (int64, int) {
-	v, n := binary.Uvarint(b)
-	return int64(v), n
+func ReadVarint(b []byte) (uint64, int) {
+	return binary.Uvarint(b)
 }
 
-func ReadVarintLast(b []byte) (int64, int) {
+func ReadVarintLast(b []byte) (uint64, int) {
 	if len(b) == 0 {
 		return 0, 0 // b is too small
 	}
@@ -77,5 +76,5 @@ func ReadVarintLast(b []byte) (int64, int) {
 	if n > MaxVarintSize || n == MaxVarintSize && lb > 1 {
 		return 0, -n // v overflow
 	}
-	return int64(x), n
+	return x, n
 }

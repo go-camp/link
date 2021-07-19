@@ -11,10 +11,10 @@ type ID interface {
 
 	// Index returns the index of id in the parant.
 	// The index of root id is 0.
-	Index() (index int64)
+	Index() (index uint64)
 
 	// Child returns the derived child id according to the given index.
-	Child(index int64) (child ID)
+	Child(index uint64) (child ID)
 
 	// IsRoot returns true if id is a root id.
 	IsRoot() bool

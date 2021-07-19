@@ -42,15 +42,14 @@ func (id rid) Parent() ID {
 	return id.copyN(len(id) - internal.VarintSizeInLastBytes(id[ridRootSize:]))
 }
 
-func (id rid) Index() (index int64) {
-	if id.IsZero() {
-		return
+func (id rid) Index() (index uint64) {
+	if !id.IsZero() {
+		index, _ = internal.ReadVarintLast(id[ridRootSize:])
 	}
-	index, _ = internal.ReadVarintLast(id[ridRootSize:])
 	return
 }
 
-func (id rid) Child(index int64) ID {
+func (id rid) Child(index uint64) ID {
 	child := make(rid, len(id)+internal.VarintSize(index))
 	copy(child, id)
 	internal.PutVarint(child[len(id):], index)
